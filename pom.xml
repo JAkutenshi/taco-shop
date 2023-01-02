@@ -8,14 +8,18 @@
         <version>2.7.8-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>com.github.jakutenshi</groupId>
     <artifactId>taco-shop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>taco-shop</name>
     <description>taco-shop</description>
+    <packaging>jar</packaging>
+
     <properties>
         <java.version>17</java.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
