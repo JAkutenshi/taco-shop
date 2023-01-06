@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -17,11 +18,34 @@ import static com.github.jakutenshi.tacoshop.Ingredient.Type;
 @Controller
 @RequestMapping("/design")
 public class DesignTacoController {
+
     private final static String TACO_DESIGN_VIEW_NAME = "design";
+    private final static String  RESULT_TACO_DESIGN_ATTR_NAME = "resultTacoDesign";
 
     @GetMapping
     public String showDesignForm(Model model) {
-        final var RESULT_TACO_DESIGN_ATTR_NAME = "resultTacoDesign";
+        addIngredientsToModel(model);
+        // Добавляем объект, в котором будет результат формы из View
+        model.addAttribute(RESULT_TACO_DESIGN_ATTR_NAME, new TacoDesign());
+        // Возвращаем пользователю View с именем "design", заполнив предварительно объект model
+        return TACO_DESIGN_VIEW_NAME;
+    }
+
+    @PostMapping
+    public String processDesign(@Valid @ModelAttribute(RESULT_TACO_DESIGN_ATTR_NAME) TacoDesign resultTacoDesign,
+                                Errors errors,
+                                Model model) {
+        if (errors.hasErrors()) {
+            log.error("Wrong smth");
+            addIngredientsToModel(model);
+            return TACO_DESIGN_VIEW_NAME;
+        }
+        // ToDo: Здесь будет сохранение рецепта в БД
+        log.info("Processing the design: " + resultTacoDesign);
+        return "redirect:/orders/current";
+    }
+
+    private static void addIngredientsToModel(Model model) {
         // Создаём каждый раз список ингредиентов
         final var ingredients = Arrays.asList(
                 new Ingredient("FLTO", "Flour Tortilla", Type.WRAP),
@@ -41,20 +65,6 @@ public class DesignTacoController {
                 ingredients.stream()
                         .filter(ingredient -> ingredient.getType() == type)
                         .toList()));
-        // Добавляем объект, в котором будет результат формы из View
-        model.addAttribute(RESULT_TACO_DESIGN_ATTR_NAME, new TacoDesign());
-        // Возвращаем пользователю View с именем "design", заполнив предварительно объект model
-        return TACO_DESIGN_VIEW_NAME;
-    }
-
-    @PostMapping
-    public String processDesign(@Valid TacoDesign design, Errors errors) {
-        if (errors.hasErrors()) {
-            return TACO_DESIGN_VIEW_NAME;
-        }
-        // ToDo: Здесь будет сохранение рецепта в БД
-        log.info("Processing the design: " + design);
-        return "redirect:/orders/current";
     }
 
 }
