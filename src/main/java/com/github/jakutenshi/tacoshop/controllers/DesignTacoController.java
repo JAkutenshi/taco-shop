@@ -1,5 +1,7 @@
-package com.github.jakutenshi.tacoshop;
+package com.github.jakutenshi.tacoshop.controllers;
 
+import com.github.jakutenshi.tacoshop.model.Ingredient;
+import com.github.jakutenshi.tacoshop.model.TacoDesign;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 import java.util.Arrays;
 
-import static com.github.jakutenshi.tacoshop.Ingredient.Type;
+import static com.github.jakutenshi.tacoshop.model.Ingredient.Type;
 
 @Slf4j
 @Controller

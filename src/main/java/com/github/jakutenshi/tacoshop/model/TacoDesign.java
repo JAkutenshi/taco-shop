@@ -1,4 +1,4 @@
-package com.github.jakutenshi.tacoshop;
+package com.github.jakutenshi.tacoshop.model;
 
 import lombok.Data;
 

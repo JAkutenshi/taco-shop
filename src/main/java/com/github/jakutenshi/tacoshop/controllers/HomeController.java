@@ -1,4 +1,4 @@
-package com.github.jakutenshi.tacoshop;
+package com.github.jakutenshi.tacoshop.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
